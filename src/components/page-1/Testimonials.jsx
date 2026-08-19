@@ -6,7 +6,7 @@ export default function Testimonials() {
     <section className="w-full bg-white py-24 sm:py-32 px-6 sm:px-12 md:px-16 lg:px-24 border-t border-zinc-100 font-sans">
       <div className="max-w-[1500px] mx-auto">
 
-        {/* ================= SECTION 1: Meaningful Connections Daily ================= */}
+        {/* ================= SECTION 1: Meaningful connections Daily ================= */}
         <div className="flex flex-col items-center text-center mb-16">
           <h2 className="font-serif text-5xl sm:text-6xl md:text-[68px] font-black text-[#111111] tracking-tight leading-[1.08] mb-6">
             Meaningful{' '}
