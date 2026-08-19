@@ -1,54 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { Heart, MessageSquare, ShieldCheck, Users, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import React from 'react';
+import { Heart, MessageSquare, ShieldCheck, Users } from 'lucide-react';
 
 export default function Testimonials() {
-  const sliderRef = useRef(null);
-
-  const stories = [
-    {
-      names: "Priya & Arjun",
-      text: "I never believed in dating apps until MELO. We matched on a Tuesday and met for coffee that weekend. Two years later, we're planning our wedding.",
-      image: "/assets/page-1/Staying Safe While Dating Online.png",
-      tag: "Priya & Arjun"
-    },
-    {
-      names: "Jordan & Maya",
-      text: "The conversation prompts made it so easy to break the ice. Our first chat lasted 4 hours. I knew he was special from the very first message.",
-      image: "/assets/page-1/From First Match to First Date.png",
-      tag: "Jordan & Maya"
-    },
-    {
-      names: "Carlos Martinez",
-      text: "MELO felt different from day one. Real people, real conversations. No games. I found my person when I stopped looking everywhere else.",
-      image: "/assets/page-1/The Art of Meaningful Conversation.png",
-      tag: "Carlos Martinez"
-    },
-    {
-      names: "Amara Johnson",
-      text: "As someone who values safety, MELO's verification process gave me the confidence to be myself. Best decision I ever made was swiping right.",
-      image: "/assets/page-1/Staying Safe While Dating Online (1).png",
-      tag: "Amara Johnson"
-    },
-    {
-      names: "Min & Jason",
-      text: "We both loved hiking and Thai food. MELO connected us through our shared interests. Our first date was a trail walk followed by pad thai.",
-      image: "/assets/page-1/ChatGPT Image May 13, 2026, 10_59_16 AM 1.png",
-      tag: "Min & Jason"
-    }
-  ];
-
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -412, behavior: 'smooth' }); // card width + gap (380 + 32)
-    }
-  };
-
-  const scrollRight = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 412, behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="w-full bg-white py-24 sm:py-32 px-6 sm:px-12 md:px-16 lg:px-24 border-t border-zinc-100 font-sans">
       <div className="max-w-[1500px] mx-auto">
@@ -173,27 +126,14 @@ export default function Testimonials() {
         {/* ================= SECTION 3: Real People, Real Connections ================= */}
         <div className="border-t border-zinc-100 pt-16 mb-16">
           {/* Header Row */}
-          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8 relative px-2 mb-16">
-            <div className="w-[100px] hidden md:block" />
-            <h3 className="font-serif text-5xl sm:text-6xl md:text-[62px] font-black text-[#111111] tracking-tight leading-[1.08] text-center flex-grow">
+          <div className="flex flex-col items-center justify-center w-full gap-4 relative px-2 mb-16 text-center">
+            <h3 className="font-serif text-5xl sm:text-6xl md:text-[62px] font-black text-[#111111] tracking-tight leading-[1.08]">
               Real People,<br />
               <span className="relative inline-block px-3 py-0.5 mt-2">
                 <span className="absolute inset-0 bg-[#d2ff00] -rotate-[0.5deg] rounded" />
                 <span className="relative z-10 text-zinc-950">Real Connections</span>
               </span>
             </h3>
-            <div className="flex items-center gap-3 w-[100px] justify-center md:justify-end shrink-0">
-              <button
-                className="w-12 h-12 rounded-full border border-zinc-300 hover:border-zinc-900 flex items-center justify-center active:scale-95 transition-all cursor-pointer bg-white shadow-sm"
-              >
-                <ChevronLeft size={20} className="text-zinc-900" />
-              </button>
-              <button
-                className="w-12 h-12 rounded-full border border-zinc-300 hover:border-zinc-900 flex items-center justify-center active:scale-95 transition-all cursor-pointer bg-white shadow-sm"
-              >
-                <ChevronRight size={20} className="text-zinc-900" />
-              </button>
-            </div>
           </div>
 
           {/* Grid Layout: Left side has tapes and arrow, Right side has 3 columns */}
