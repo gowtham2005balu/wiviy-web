@@ -11,7 +11,7 @@ import Testimonials from './components/page-1/Testimonials';
 import Blog from './components/page-1/Blog';
 import CTA from './components/page-1/CTA';
 import Footer from './components/page-1/Footer';
-
+// Page 4 Component imports
 // Page 2 Component imports
 import Page2Hero from './components/page-2/Page2Hero';
 import Page2Ticker from './components/page-2/Page2Ticker';
