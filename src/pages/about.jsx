@@ -27,7 +27,7 @@ function AboutHero() {
         <div className="flex flex-wrap items-center justify-center gap-5.5 pt-2.5 w-full">
           <button
             type="button"
-            onClick={() => window.open('#', '_blank')}
+            onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
             className="w-30 h-11.5 bg-[#D2F026] text-[#12140F] font-bold text-base rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
           >
             Get the app
@@ -120,37 +120,48 @@ const approachSteps = [
 
 function Approach() {
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center py-16 lg:py-[120px] px-6 sm:px-16 lg:px-[80px]">
-      <div className={`${SECTION_WRAP} flex flex-col items-start gap-10 lg:gap-16`}>
-        <div className="flex flex-col items-start gap-3.5 max-w-[709px]">
-          <span className="font-sans font-bold text-[#5E5A57] text-sm tracking-[2px] uppercase">
-            Our Approach
+    <section className="w-full bg-white flex flex-col items-center justify-center py-16 lg:py-[120px] px-6 sm:px-12 lg:px-20">
+      <div className="w-full max-w-[1240px] mx-auto flex flex-col items-start gap-10 lg:gap-14">
+        {/* Header */}
+        <div className="flex flex-col items-start gap-3 max-w-[700px]">
+          <span className="font-sans font-bold text-xs sm:text-[13px] tracking-[2.5px] uppercase text-[#706E6B]">
+            OUR APPROACH
           </span>
-          <h2 className="font-serif font-medium text-[#171512] text-3xl sm:text-4xl lg:text-[50px] leading-[1.12] tracking-[-0.5px]">
-            So we're doing things a little differently.
+          <h2 className="font-serif font-medium text-3xl sm:text-4xl lg:text-[54px] leading-[1.15] tracking-[-0.5px] text-[#111111]">
+            So we're doing things a little<br className="hidden sm:block" /> differently.
           </h2>
         </div>
 
-        <div className="w-full flex flex-col md:flex-row items-stretch justify-center">
-          {approachSteps.map((step, i) => (
+        {/* 3 Columns / Cards container */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 border border-[#E5E7EB] divide-y md:divide-y-0 md:divide-x divide-[#E5E7EB] bg-white">
+          {approachSteps.map((step) => (
             <div
               key={step.number}
-              className={`flex-1 flex flex-col items-center text-center justify-center gap-3 p-8 border border-[#E8E6DD] ${
-                i > 0 ? 'md:border-l-0 border-t-0 md:border-t' : ''
-              }`}
+              className="flex flex-col items-start p-8 sm:p-10 lg:p-10 bg-white"
             >
-              <span className="w-full text-left font-serif text-[#5E5A57] text-sm pb-2">
+              {/* Step number */}
+              <span className="font-sans text-[15px] font-normal text-[#706E6B] mb-6">
                 {step.number}
               </span>
-              <h3 className="w-full text-left font-sans font-bold text-[#171512] text-2xl leading-tight">
+
+              {/* Title */}
+              <h3 className="font-sans font-bold text-2xl lg:text-[28px] leading-[1.2] text-[#111111] mb-3">
                 {step.title}
               </h3>
-              <p className="w-full text-left font-sans text-[#5E5A57] text-base leading-[1.55]">
+
+              {/* Description */}
+              <p className="font-sans text-[15px] sm:text-[15.5px] leading-[1.55] text-[#555555] min-h-[48px] sm:min-h-[72px]">
                 {step.description}
               </p>
-              <div className="w-full max-w-80 aspect-[320/340] mt-4 flex items-center justify-center overflow-hidden">
+
+              {/* Image box: exactly 320 x 340 per Figma */}
+              <div className="w-full flex items-center justify-center mt-8 sm:mt-12 h-[340px]">
                 {step.image && (
-                  <img src={step.image} alt={step.title} className="w-full h-full object-contain" />
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-auto h-full max-w-[320px] max-h-[340px] object-contain select-none pointer-events-none"
+                  />
                 )}
               </div>
             </div>
@@ -163,43 +174,116 @@ function Approach() {
 
 /* ---------- 05 BELIEFS ---------- */
 
+function BeYourselfIcon({ className = 'w-7 h-7' }) {
+  return (
+    <svg className={className} viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Lime filled head with dark outline */}
+      <circle cx="14" cy="9" r="5.25" fill="#D2F026" stroke="#171512" strokeWidth="2.2" />
+      {/* Curved body / shoulders arc */}
+      <path
+        d="M5 28C5 21.5 9 17.5 14 17.5C19 17.5 23 21.5 23 28"
+        stroke="#171512"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function MeetDifferentlyIcon({ className = 'w-9 h-7' }) {
+  return (
+    <svg className={className} viewBox="0 0 38 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* S-curve wave line */}
+      <path
+        d="M6 18C10.5 18 11.5 6 17 6C22.5 6 23.5 20 31.5 8.5"
+        stroke="#171512"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+      {/* Bottom-left pink circle */}
+      <circle cx="6" cy="18" r="3" fill="#F5B1EB" stroke="#171512" strokeWidth="2.2" />
+      {/* Top-right lime circle */}
+      <circle cx="32" cy="8.5" r="3" fill="#D2F026" stroke="#171512" strokeWidth="2.2" />
+    </svg>
+  );
+}
+
+function KeepItHumanIcon({ className = 'w-7 h-7' }) {
+  return (
+    <svg className={className} viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Speech bubble */}
+      <path
+        d="M4 3.5H24C25.1 3.5 26 4.4 26 5.5V16.5C26 17.6 25.1 18.5 24 18.5H8.5L4.5 23V18.5H4C2.9 18.5 2 17.6 2 16.5V5.5C2 4.4 2.9 3.5 4 3.5Z"
+        fill="#EFC9DF"
+        stroke="#171512"
+        strokeWidth="2.2"
+        strokeLinejoin="round"
+      />
+      {/* 3 dots */}
+      <circle cx="9" cy="11" r="1.3" fill="#171512" />
+      <circle cx="14" cy="11" r="1.3" fill="#171512" />
+      <circle cx="19" cy="11" r="1.3" fill="#171512" />
+    </svg>
+  );
+}
+
 const principles = [
-  { icon: '📍', title: 'BE YOURSELF.', description: 'Let your personality do more of the talking.' },
-  { icon: '〰️', title: 'MEET DIFFERENTLY.', description: 'Leave room for unexpected connections.' },
-  { icon: '💬', title: 'KEEP IT HUMAN.', description: 'Make conversations and connections feel natural.' },
+  {
+    icon: BeYourselfIcon,
+    title: 'BE YOURSELF.',
+    description: 'Let your personality do more of the talking.',
+  },
+  {
+    icon: MeetDifferentlyIcon,
+    title: 'MEET DIFFERENTLY.',
+    description: 'Leave room for unexpected connections.',
+  },
+  {
+    icon: KeepItHumanIcon,
+    title: 'KEEP IT HUMAN.',
+    description: 'Make conversations and connections feel natural.',
+  },
 ];
 
 function Beliefs() {
   return (
-    <section className="w-full bg-[#DFE7F6] flex flex-col items-center justify-center py-16 lg:py-[120px] px-6 sm:px-16 lg:px-[80px]">
-      <div className={`${SECTION_WRAP} flex flex-col items-center gap-16 lg:gap-[90px]`}>
-        <div className="flex flex-col items-center gap-3.5 max-w-[640px] text-center">
-          <span className="font-sans font-bold text-[#5E5A57] text-sm tracking-[2px] uppercase">
-            What We Believe
+    <section className="w-full bg-[#DFE7F6] flex flex-col items-center justify-center py-20 lg:py-28 px-6 sm:px-12 lg:px-20">
+      <div className="w-full max-w-[1100px] mx-auto flex flex-col items-center">
+        {/* Header */}
+        <div className="flex flex-col items-center gap-3.5 max-w-[680px] text-center mb-16 lg:mb-20">
+          <span className="font-sans font-bold text-xs sm:text-[13px] tracking-[2.5px] uppercase text-[#706E6B]">
+            WHAT WE BELIEVE
           </span>
-          <h2 className="font-serif font-medium text-[#181614] text-3xl sm:text-4xl lg:text-[54px] leading-[1.14] tracking-[-0.54px]">
-            More personality. Less performance.
+          <h2 className="font-serif font-medium text-3xl sm:text-5xl lg:text-[58px] leading-[1.12] tracking-[-0.5px] text-[#111111]">
+            More personality. Less<br className="hidden sm:block" /> performance.
           </h2>
-          <p className="text-[#5E5A57] text-base sm:text-lg leading-[1.5] font-sans pt-1">
-            You shouldn't have to build a perfect version of yourself to meet someone. Wiviy is about making space
-            for the real, imperfect, interesting parts of who you are.
+          <p className="font-sans text-[15px] sm:text-base leading-[1.6] text-[#555555] max-w-[560px] pt-1">
+            You shouldn't have to build a perfect version of yourself to meet someone. Wiviy is
+            about making space for the real, imperfect, interesting parts of who you are.
           </p>
         </div>
 
-        <div className="w-full flex flex-col sm:flex-row items-start justify-center gap-10 lg:gap-11">
-          {principles.map((p) => (
-            <div key={p.title} className="flex-1 flex flex-col items-center justify-center gap-2.5 text-center max-w-90 mx-auto">
-              <span className="text-4xl leading-none" aria-hidden="true">
-                {p.icon}
-              </span>
-              <h3 className="font-sans font-bold text-[#171512] text-lg tracking-[0.465px] pt-3">
-                {p.title}
-              </h3>
-              <p className="max-w-65 text-[#5E5A57] text-base leading-[1.5] font-sans">
-                {p.description}
-              </p>
-            </div>
-          ))}
+        {/* 3 Principles Columns */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+          {principles.map((p) => {
+            const Icon = p.icon;
+            return (
+              <div
+                key={p.title}
+                className="flex flex-col items-center text-center max-w-[280px] mx-auto"
+              >
+                <div className="h-10 flex items-center justify-center mb-5">
+                  <Icon />
+                </div>
+                <h3 className="font-sans font-bold text-[#111111] text-[15px] tracking-[1.5px] uppercase mb-2">
+                  {p.title}
+                </h3>
+                <p className="font-sans text-[14.5px] leading-[1.55] text-[#555555]">
+                  {p.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -210,15 +294,15 @@ function Beliefs() {
 
 function Mission() {
   return (
-    <section className="w-full bg-[#F6FCD4] flex flex-col items-center justify-center py-16 lg:py-[120px] px-6 sm:px-16 lg:px-[80px]">
-      <div className={`${SECTION_WRAP} flex flex-col items-center gap-4 text-center`}>
-        <span className="font-sans font-bold text-[#5E5A57] text-sm tracking-[2px] uppercase">
-          Our Mission
+    <section className="w-full bg-[#F6FCD4] flex flex-col items-center justify-center py-20 lg:py-28 px-6 sm:px-12 lg:px-20">
+      <div className="w-full max-w-[1240px] mx-auto flex flex-col items-center gap-4 text-center">
+        <span className="font-sans font-bold text-xs sm:text-[13px] tracking-[2.5px] uppercase text-[#706E6B]">
+          OUR MISSION
         </span>
-        <h2 className="max-w-[760px] font-['DM_Serif_Display'] font-normal text-[#171512] text-3xl sm:text-5xl lg:text-[68px] leading-[1.08] tracking-[-0.68px]">
-          Make meeting people feel more human.
+        <h2 className="w-full max-w-[760px] font-serif font-normal text-[#171512] text-4xl sm:text-6xl lg:text-[68px] leading-[1.08] lg:leading-[73.5px] tracking-[-0.68px] mx-auto">
+          Make meeting people feel<br className="hidden sm:block" /> more human.
         </h2>
-        <p className="max-w-[460px] text-[#5E5A57] text-base sm:text-lg leading-[1.6] font-sans pt-1">
+        <p className="max-w-[580px] text-[#555555] text-base sm:text-[17px] leading-[1.6] font-sans pt-1 mx-auto">
           We're creating a dating experience that leaves more room for curiosity, personality and genuine connection.
         </p>
       </div>
@@ -226,19 +310,19 @@ function Mission() {
   );
 }
 
-/* ---------- 08 FUTURE ---------- */
+/* ---------- 08 FUTURE (WHAT'S NEXT) ---------- */
 
 function Future() {
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center py-20 lg:py-40 px-6 sm:px-16 lg:px-[80px]">
-      <div className={`${SECTION_WRAP} flex flex-col items-center gap-4 text-center`}>
-        <span className="font-sans font-bold text-[#5E5A57] text-sm tracking-[2px] uppercase">
-          What's Next
+    <section className="w-full bg-white flex flex-col items-center justify-center py-24 lg:py-36 px-6 sm:px-12 lg:px-20">
+      <div className="w-full max-w-[1240px] mx-auto flex flex-col items-center gap-4 text-center">
+        <span className="font-sans font-bold text-xs sm:text-[13px] tracking-[2.5px] uppercase text-[#706E6B]">
+          WHAT'S NEXT
         </span>
-        <h2 className="max-w-[640px] font-['DM_Serif_Display'] font-normal text-[#5E5A57] text-3xl sm:text-4xl lg:text-[54px] leading-[1.18] tracking-[-0.54px]">
+        <h2 className="w-full max-w-[640px] font-serif font-normal text-[#171512] text-3xl sm:text-5xl lg:text-[54px] leading-[1.2] lg:leading-[64.72px] tracking-[-0.54px] mx-auto">
           There's more to shake up.
         </h2>
-        <p className="max-w-[520px] text-[#5E5A57] text-base sm:text-[17px] leading-[1.65] font-sans pt-1">
+        <p className="max-w-[540px] text-[#555555] text-base sm:text-[17px] leading-[1.65] font-sans pt-1 mx-auto">
           Wiviy is still evolving. We're building toward a world where meeting someone new feels less predictable,
           more expressive and a little more exciting.
         </p>
@@ -275,7 +359,7 @@ function FinalCTA() {
         </p>
         <button
           type="button"
-          onClick={() => window.open('#', '_blank')}
+          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
           className="mt-2 box-border w-[129px] h-[51px] px-[28px] py-[15px] bg-[#D2F026] text-[#171512] font-['Plus_Jakarta_Sans'] font-bold text-[15px] leading-[19px] rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
         >
           Get Wiviy

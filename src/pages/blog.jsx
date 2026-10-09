@@ -140,7 +140,7 @@ export default function Blog() {
           href="#"
           className={`${BODY} inline-flex items-center gap-1.5 font-bold text-[14px] leading-[17px] tracking-[1px] uppercase text-[#5E5A57] hover:text-[#171512] transition-colors`}
         >
-          <span aria-hidden="true">←</span> Back to journal
+
         </a>
       </div>
 

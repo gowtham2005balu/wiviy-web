@@ -53,13 +53,10 @@ const HIRING = [
   { n: '05', title: 'Offer', text: "If it feels like a great fit on both sides, we'll make it official." },
 ];
 
-const JOBS = [
-  { id: 1, title: 'Senior Product Designer', location: 'Remote · India', department: 'Product', type: 'Full-time', posted: 'Posted 3 days ago', href: '/careers/apply' },
-  { id: 2, title: 'Senior Frontend Engineer', location: 'Remote · India', department: 'Engineering', type: 'Full-time', posted: 'Posted 1 week ago', href: '/careers/apply' },
-  { id: 3, title: 'Product Manager', location: 'Bengaluru / Remote', department: 'Product', type: 'Full-time', posted: 'Posted 2 weeks ago', href: '/careers/apply' },
-  { id: 4, title: 'Growth Marketing Manager', location: 'Remote', department: 'Marketing', type: 'Full-time', posted: 'Posted 3 weeks ago', href: '/careers/apply' },
-  { id: 5, title: 'Community & Partnerships Lead', location: 'Mumbai / Remote', department: 'Marketing', type: 'Full-time', posted: 'Posted 1 month ago', href: '/careers/apply' },
-];
+import { Link } from 'react-router-dom';
+import { JOBS_LIST } from '../data/jobs';
+
+const JOBS = JOBS_LIST;
 
 const unique = (key) => [...new Set(JOBS.map((j) => j[key]))];
 
@@ -392,7 +389,11 @@ export default function Careers() {
               </p>
             ) : (
               jobs.map((j) => (
-                <a key={j.id} href={j.href} className="group flex items-center justify-between gap-5 py-[26px] border-b border-[#E8E6DD]">
+                <Link
+                  key={j.id}
+                  to={`/careers/${j.id}`}
+                  className="group flex items-center justify-between gap-5 py-[26px] border-b border-[#E8E6DD] cursor-pointer"
+                >
                   <div className="flex flex-col gap-1">
                     <h3 className={`${SANS} font-bold text-[19px] leading-6 group-hover:underline`}>{j.title}</h3>
                     <p className={`${SANS} text-[13px] leading-4 text-[#5E5A57] pt-0.5`}>
@@ -401,7 +402,7 @@ export default function Careers() {
                     <p className={`${SANS} text-[12px] leading-[15px] text-[#5E5A57]`}>{j.posted}</p>
                   </div>
                   <span className={`${SANS} shrink-0 font-bold text-[14px] leading-[18px]`}>View role →</span>
-                </a>
+                </Link>
               ))
             )}
           </div>

@@ -19,64 +19,94 @@ import safetyVerification from '../assets/safety-verification.png';
 import safetySupport from '../assets/safety-support.png';
 import safetyControl from '../assets/safety-control.png';
 import ctaImage from '../assets/final-cta-outdoor.png';
+import starImage from '../assets/image.png';
+import future21 from '../assets/future21.png';
 
 /* ---------- Shared ---------- */
 
 const SECTION_WRAP = 'w-full max-w-[1240px] mx-auto px-6 sm:px-8';
 
-/* ---------- 01 HERO ---------- */
+const heroSparkles = [
+  { top: '12%', left: '13%', size: 14 },
+  { top: '11%', left: '26%', size: 18 },
+  { top: '11%', left: '58%', size: 12 },
+  { top: '4%', left: '84%', size: 14 },
+  { top: '34%', left: '6%', size: 15 },
+  { top: '61%', left: '21%', size: 14 },
+  { top: '56%', left: '62%', size: 12 },
+  { top: '41%', left: '83%', size: 16 },
+  { top: '59%', left: '88%', size: 15 },
+  { top: '26%', left: '98%', size: 14 },
+  { top: '75%', left: '11%', size: 14 },
+  { top: '96%', left: '17%', size: 16 },
+  { top: '85%', left: '33%', size: 14 },
+  { top: '79%', left: '55%', size: 12 },
+  { top: '96%', left: '93%', size: 16 },
+];
+
 function FeaturesHero() {
   return (
-    <section className="relative w-full bg-[#10100A] overflow-hidden flex flex-col items-center pt-20 sm:pt-32 lg:pt-[190px] pb-16 lg:pb-[60px] px-6 sm:px-16 lg:px-[100px] isolate lg:min-h-[911px]">
-      {/* Decorative layer: 1440px design canvas, centered, desktop only */}
-      <div
-        aria-hidden="true"
-        className="hidden lg:block absolute top-0 left-1/2 -translate-x-1/2 w-[1440px] h-full z-0 pointer-events-none"
-      >
-        {/* It's a match cluster (left) */}
-        <img
-          src={feature1}
-          alt=""
-          className="absolute object-contain"
-          style={{ left: 55, top: 210, width: 236, height: 229 }}
-        />
-        {/* Heart blob (bottom-left) */}
-        <img
-          src={feature2}
-          alt=""
-          className="absolute object-contain"
-          style={{ left: 330, top: 630, width: 213, height: 206 }}
-        />
-        {/* Avatars + chat bubble (top-right) */}
-        <img
-          src={feature3}
-          alt=""
-          className="absolute object-contain"
-          style={{ left: 1128, top: 190, width: 247, height: 254 }}
-        />
-        {/* Phone card + "Shake to discover" (bottom-right) */}
-        <img
-          src={feature4}
-          alt=""
-          className="absolute object-contain"
-          style={{ left: 1036, top: 568, width: 260, height: 268 }}
-        />
+    <section className="relative w-full bg-[#10100A] overflow-hidden flex flex-col items-center justify-center min-h-[750px] lg:min-h-[880px] pt-24 sm:pt-36 lg:pt-[180px] pb-20 lg:pb-[140px] px-6 sm:px-12 isolate">
+      {/* Background scattered star sparkles from image.png */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0" aria-hidden="true">
+        {heroSparkles.map((sp, i) => (
+          <img
+            key={i}
+            src={starImage}
+            alt=""
+            className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none object-contain"
+            style={{
+              top: sp.top,
+              left: sp.left,
+              width: `${sp.size}px`,
+              height: `${sp.size}px`,
+            }}
+          />
+        ))}
       </div>
 
-      {/* Content */}
-      <div className={`${SECTION_WRAP} relative z-10 flex flex-col items-center gap-5 text-center`}>
-        <h1 className="max-w-[760px] font-['DM_Serif_Display'] font-normal text-white text-4xl sm:text-6xl lg:text-[90px] leading-[1.05] lg:leading-[90px] tracking-[-0.9px]">
-          Meet your people. <br className="hidden sm:block" />
-          Your way.
+      {/* Floating feature illustration badges */}
+      {/* Top-Left: "It's a match" + heart + circles */}
+      <img
+        src={feature1}
+        alt="It's a match"
+        className="hidden md:block absolute left-[3%] lg:left-[5%] top-[20%] lg:top-[22%] w-[180px] sm:w-[220px] lg:w-[260px] object-contain pointer-events-none select-none z-10"
+      />
+
+      {/* Bottom-Left: Heart doodle */}
+      <img
+        src={feature2}
+        alt="Heart badge"
+        className="hidden md:block absolute left-[22%] lg:left-[24%] top-[66%] lg:top-[68%] w-[130px] sm:w-[160px] lg:w-[190px] object-contain pointer-events-none select-none z-10"
+      />
+
+      {/* Top-Right: Avatars + chat bubble + heart */}
+      <img
+        src={feature3}
+        alt="Avatars and chat"
+        className="hidden md:block absolute right-[3%] lg:right-[5%] top-[19%] lg:top-[21%] w-[180px] sm:w-[220px] lg:w-[250px] object-contain pointer-events-none select-none z-10"
+      />
+
+      {/* Bottom-Right: Phone + "Shake to discover" */}
+      <img
+        src={feature4}
+        alt="Shake to discover preview"
+        className="hidden md:block absolute right-[10%] lg:right-[13%] top-[58%] lg:top-[60%] w-[160px] sm:w-[200px] lg:w-[230px] object-contain pointer-events-none select-none z-10"
+      />
+
+      {/* Center Content */}
+      <div className="relative z-20 flex flex-col items-center gap-5 sm:gap-6 text-center max-w-[800px] mx-auto px-4">
+        <h1 className="font-serif font-normal text-white text-5xl sm:text-7xl lg:text-[92px] leading-[1.05] lg:leading-[92px] tracking-[-0.9px] mx-auto">
+          Meet your people.<br className="hidden sm:block" /> Your way.
         </h1>
-        <p className="max-w-[520px] text-[#B2B2B0] text-base sm:text-[17.5px] leading-[1.6] font-['Plus_Jakarta_Sans']">
+        <p className="max-w-[530px] text-[#B2B2B0] text-base sm:text-lg leading-[1.6] font-sans pt-1 mx-auto">
           From your first hello to finding someone nearby, Wiviy gives you more ways to connect — with the freedom
           to make dating feel like your own.
         </p>
         <button
           type="button"
-          onClick={() => window.open('#', '_blank')}
-          className="mt-1 w-[120px] h-[46px] bg-[#D2F026] text-[#12140F] font-bold text-base rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
+          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
+          className="mt-2 h-11.5 px-7 bg-[#D2F026] text-[#12140F] font-sans font-bold text-base rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
         >
           Get the app
         </button>
@@ -87,78 +117,24 @@ function FeaturesHero() {
 
 /* ---------- 03 PROFILE ---------- */
 
-function ScrapCard({ image, name, tagline, tags, note1, note2, tint }) {
-  return (
-    <div className="w-full max-w-130 pt-8 sm:pt-13">
-      <div
-        className="relative box-border p-6 rounded-[20px] border-2 border-[#171512] shadow-[8px_8px_0px_#D2F026] flex flex-col gap-1.5"
-        style={{ background: 'rgba(42,29,40,0.6)' }}
-      >
-        <div
-          className="w-full aspect-[468/432] rounded-2xl bg-cover bg-center"
-          style={{ backgroundImage: `url(${image})`, backgroundColor: tint }}
-        />
-        <div className="flex flex-col items-center pt-2.5 gap-1">
-          <span className="font-sans font-bold text-2xl text-white">{name}</span>
-          <p className="text-center font-sans text-[13.5px] text-[#DEDEDE]">{tagline}</p>
-        </div>
-        <div className="flex flex-row flex-wrap items-start justify-center gap-2 pt-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="box-border px-3 py-1.5 bg-white border border-[#E8E6DD] rounded-full font-sans font-bold text-xs text-[#514B47]"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {note1 && (
-          <span className="absolute -right-6 top-5 box-border px-3.5 py-2.5 bg-[#D2F026] border-2 border-[#171512] rounded-[10px] shadow-[4px_4px_0px_rgba(23,21,18,0.12)] rotate-[-6deg] font-sans font-bold text-[14.5px] text-[#171512] whitespace-nowrap">
-            {note1}
-          </span>
-        )}
-        {note2 && (
-          <span className="absolute -left-8 -bottom-3 box-border px-3.5 py-2.5 bg-white border-2 border-[#171512] rounded-[10px] shadow-[4px_4px_0px_rgba(23,21,18,0.12)] rotate-[5deg] font-sans font-bold text-[14.5px] text-[#171512] whitespace-nowrap">
-            {note2}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function Profile() {
   return (
-    <section className="w-full bg-white flex flex-col items-center py-16 lg:py-[120px] px-6 sm:px-16 lg:px-[100px]">
-      <div className={`${SECTION_WRAP} flex flex-col items-center gap-8 lg:gap-4.5`}>
-        <div className="flex flex-col items-center gap-4 max-w-[520px] text-center">
-          <h2 className="font-sans font-bold text-[#171512] text-3xl sm:text-4xl lg:text-[52px] leading-[1.08] tracking-[-0.5px]">
+    <section className="w-full bg-white flex flex-col items-center py-16 lg:py-[120px] px-6 sm:px-12 lg:px-20">
+      <div className={`${SECTION_WRAP} flex flex-col items-center gap-8 lg:gap-12`}>
+        <div className="flex flex-col items-center gap-3.5 max-w-[560px] text-center">
+          <h2 className="font-sans font-bold text-[#171512] text-3xl sm:text-4xl lg:text-[54px] leading-[1.08] tracking-[-0.5px]">
             More than a photo.
           </h2>
-          <p className="max-w-[440px] text-[#5E5A57] text-base sm:text-lg leading-[1.5] font-sans">
+          <p className="max-w-[480px] text-[#5E5A57] text-base sm:text-lg leading-[1.5] font-sans">
             Show people what makes you, you. Build a profile that gives others something real to connect with.
           </p>
         </div>
 
-        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4.5 pt-6">
-          <ScrapCard
-            image={scrapAlia}
-            name="Alia"
-            tagline="Photography · late-night talks · terrible karaoke"
-            tags={['Photography', 'Hiking', 'Vinyl records']}
-            note1="dog person"
-            note2="coffee before conversation"
-            tint="#F1E6EF"
-          />
-          <ScrapCard
-            image={scrapJohn}
-            name="John"
-            tagline="Photography · late-night talks · terrible karaoke"
-            tags={['Photography', 'Hiking', 'Vinyl records']}
-            note1="dog person"
-            note2="coffee before conversation"
-            tint="#DFE7F6"
+        <div className="w-full flex items-center justify-center pt-2 sm:pt-6">
+          <img
+            src={future21}
+            alt="Profile cards feature - Alia and John"
+            className="w-full h-auto max-w-[1100px] object-contain select-none pointer-events-none"
           />
         </div>
       </div>
@@ -170,7 +146,7 @@ function Profile() {
 
 function MatchingLikes() {
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10">
+    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10 py-8 sm:py-12 lg:py-14">
       <div className={`${SECTION_WRAP} bg-[#DFE7F6] rounded-[32px] sm:rounded-[48px] lg:rounded-[64px] py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-[60px] flex flex-col lg:flex-row items-center gap-10 lg:gap-15`}>
         <div className="w-full lg:flex-1 lg:basis-139.5 flex flex-col items-start justify-center gap-6 text-left">
           <h2 className="font-sans font-bold text-[#171512] text-3xl sm:text-4xl lg:text-[58px] leading-[0.97] max-w-115">
@@ -224,7 +200,7 @@ function MatchingLikes() {
 
 function Nearby() {
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10 pt-8 sm:pt-10">
+    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10 py-8 sm:py-12 lg:py-14">
       <div className={`${SECTION_WRAP} bg-[#F0EAF2] rounded-[32px] sm:rounded-[48px] lg:rounded-[64px] py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-[60px] flex flex-col lg:flex-row items-center gap-10 lg:gap-15`}>
         <div className="w-full lg:flex-1 lg:basis-152 rounded-3xl overflow-hidden bg-[#2A1D28] shadow-[6px_6px_0px_rgba(23,21,18,0.1)] p-2 sm:p-3">
           <img src={nearbyMap} alt="Nearby map preview" className="w-full h-auto rounded-2xl object-cover" />
@@ -247,7 +223,7 @@ function Nearby() {
 
 function Icebreakers() {
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10 pt-8 sm:pt-10">
+    <section className="w-full flex flex-col items-center justify-center px-4 sm:px-10 pt-8 sm:pt-12 lg:pt-14 pb-20 sm:pb-28 lg:pb-36">
       <div className={`${SECTION_WRAP} bg-[#DFF26F]/30 rounded-[32px] sm:rounded-[48px] lg:rounded-[64px] py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-[60px] flex flex-col lg:flex-row items-center gap-10 lg:gap-15`}>
         <div className="w-full lg:flex-1 lg:basis-147.5 flex flex-col items-start justify-center gap-4.5 text-left">
           <h2 className="font-sans font-bold text-[#171512] text-3xl sm:text-4xl lg:text-[58px] leading-[0.97]">
@@ -397,7 +373,7 @@ function FeaturesFinalCTA() {
         </p>
         <button
           type="button"
-          onClick={() => window.open('#', '_blank')}
+          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
           className="mt-2 box-border w-[210px] h-[51px] px-[28px] py-[15px] bg-[#D2F026] text-[#171512] font-['Plus_Jakarta_Sans'] font-bold text-[15px] leading-[19px] rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
         >
           Start exploring Wiviy

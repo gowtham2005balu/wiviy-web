@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
+import { JOBS_BY_ID, JOBS_LIST } from '../data/jobs';
 
 /* ---------- Tokens ---------- */
 const SERIF = "font-['Libre_Baskerville',serif]";
@@ -70,12 +72,18 @@ function DocIcon() {
 }
 
 /* ---------- Page ---------- */
-export default function CareersApply({
-  role = 'Senior Product Designer',
-  meta = 'Remote · India · Full-time',
-  backHref = '/careers',
-  onSubmit, // optional: async (FormData) => void — send it to your API
-}) {
+export default function CareersApply({ onSubmit }) {
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const roleId = id || searchParams.get('id') || '1';
+  const job = JOBS_BY_ID[roleId] || JOBS_LIST[0];
+  const role = job.title;
+  const meta = job.meta ? job.meta.join(' · ') : `${job.location} · ${job.type}`;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [roleId]);
+
   const [values, setValues] = useState(INITIAL);
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
@@ -132,6 +140,7 @@ export default function CareersApply({
       const data = new FormData();
       Object.entries(values).forEach(([k, v]) => data.append(k, v));
       data.append('role', role);
+      data.append('roleId', job.id);
       data.append('resume', file);
       if (onSubmit) await onSubmit(data); // otherwise wire up your endpoint here
       setSubmitted(true);
@@ -150,12 +159,12 @@ export default function CareersApply({
       <main className="w-full max-w-[1240px] mx-auto px-6 pt-[110px] pb-20">
         {/* Back link */}
         <div className="pt-12 pb-4">
-          <a
-            href={backHref}
+          <Link
+            to={`/careers/${job.id}`}
             className={`${SANS} inline-flex items-center gap-1.5 font-extrabold text-[12.5px] leading-4 tracking-[1px] uppercase text-[#5E5A57] hover:text-[#171512] transition-colors`}
           >
             <span aria-hidden="true">←</span> Back to role
-          </a>
+          </Link>
         </div>
 
         <div className="w-full max-w-[680px] mx-auto">
@@ -177,12 +186,12 @@ export default function CareersApply({
                 Thanks, {values.firstName}. We'll read your application and email you at {values.email} about next
                 steps.
               </p>
-              <a
-                href="/careers"
+              <Link
+                to="/careers"
                 className={`${SANS} inline-flex items-center justify-center h-[51px] px-7 rounded-full bg-[#D2F026] text-[#171512] font-bold text-[15px] hover:opacity-90 transition-opacity mt-2`}
               >
                 See other roles
-              </a>
+              </Link>
             </div>
           ) : (
             <form id="appForm" onSubmit={handleSubmit} noValidate className="flex flex-col gap-[54px] px-0 sm:px-8">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
 
@@ -30,7 +30,7 @@ function Hero() {
         <div className="flex flex-wrap items-center justify-center gap-5.5 mt-4.5 w-full">
           <button
             type="button"
-            onClick={() => window.open('#', '_blank')}
+            onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
             className="w-30 h-11.5 bg-[#D2F026] text-[#12140F] font-bold text-base rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
           >
             Get the app
@@ -49,13 +49,15 @@ const steps = [
     label: 'Create',
     title: 'Create',
     description: 'Build a profile that actually sounds like you — no templates, no filler.',
+    bgColor: '#DFE7F6',
     image: null,
   },
   {
     key: 'discover',
     label: 'Discover',
     title: 'Discover',
-    description: "Move through Wiviy's discovery flowat your own pace, on your own terms.",
+    description: "Move through Wiviy's discovery flow at your own pace, on your own terms.",
+    bgColor: '#2A1D28',
     image: null,
   },
   {
@@ -63,6 +65,7 @@ const steps = [
     label: 'Connect',
     title: 'Connect',
     description: 'Like, match, and start a conversation with someone who liked you back.',
+    bgColor: '#F5B1EB',
     image: null,
   },
 ];
@@ -73,31 +76,31 @@ function HowItWorks() {
 
   return (
     <section className="relative w-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-16 lg:py-30 gap-12.5">
-      <div className="w-full max-w-7xl flex flex-col items-start gap-4.5">
-        <div className="w-full flex flex-row flex-wrap justify-between items-start gap-y-2">
+      <div className="w-full max-w-7xl flex flex-col items-start">
+        <div className="w-full flex flex-row flex-wrap justify-between items-start gap-y-2 pb-4.5">
           {steps.map((step, i) => (
             <button
               key={step.key}
               type="button"
               onClick={() => setActive(i)}
-              className={`font-sans font-bold text-3xl sm:text-4xl lg:text-[54px] leading-tight lg:leading-13.5 transition-colors ${
-                i === active ? 'text-[#12140F]' : 'text-[#12140F]/30 hover:text-[#12140F]/60'
+              className={`relative p-0 m-0 border-0 bg-transparent text-left font-sans text-3xl sm:text-4xl lg:text-[54px] leading-tight lg:leading-13.5 transition-colors cursor-pointer ${
+                i === active
+                  ? 'font-bold text-[#12140F]'
+                  : 'font-normal text-[#12140F]/30 hover:text-[#12140F]/60'
               }`}
             >
-              {step.label}.
+              <span className="relative inline-block">
+                {step.label}.
+                {i === active && (
+                  <span className="absolute -bottom-4.5 left-0 w-full h-1.75 translate-y-1/2 bg-[#D2F026] rounded-full z-10 pointer-events-none" />
+                )}
+              </span>
             </button>
           ))}
         </div>
 
-        <div className="relative w-full h-px bg-[#E6E6D9]">
-          <div
-            className="absolute -top-0.75 h-1.75 bg-[#D2F026] rounded-[10px] transition-all duration-300"
-            style={{
-              width: '120px',
-              left: `calc(${(active / steps.length) * 100}% )`,
-            }}
-          />
-        </div>
+        {/* Continuous horizontal track line */}
+        <div className="relative w-full h-px bg-[#E6E6D9]" />
       </div>
 
       <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
@@ -110,7 +113,10 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="w-full lg:flex-1 lg:basis-177 max-w-177 aspect-[708/424] lg:h-106 bg-[#DFE7F6] rounded-sm overflow-hidden">
+        <div
+          className="w-full lg:flex-1 lg:basis-177 max-w-177 aspect-[708/424] lg:h-106 rounded-sm overflow-hidden transition-colors duration-300"
+          style={{ backgroundColor: activeStep.bgColor || '#DFE7F6' }}
+        >
           {activeStep.image && (
             <img
               src={activeStep.image}
@@ -140,7 +146,7 @@ const shakePills = [
 
 const pillTone = {
   blue: 'bg-[#C7AFFF]/10 border border-[#0040FF]/25 text-[#161414]',
-  red: 'bg-[#FFAFAF]/10 border border-[#FF0000]/25 text-[#FFDADA]',
+  red: 'bg-[#FFAFAF]/10 border border-[#FF0000]/25 text-[#161414]',
 };
 
 function PillRow({ reverse = false }) {
@@ -287,11 +293,14 @@ function ProfileSayMore() {
         </div>
       </div>
 
-      {/* Floral strip: fixed 207px tall per spec, full-bleed, image not stretched/cropped oddly */}
-      <div
-        className="w-full h-32 sm:h-40 lg:h-51.75 bg-cover bg-bottom shrink-0"
-        style={{ backgroundImage: `url(${flowersImage})` }}
-      />
+      {/* Floral strip: full-bleed, flowers fully visible without getting clipped */}
+      <div className="w-full shrink-0 overflow-hidden leading-none mt-auto">
+        <img
+          src={flowersImage}
+          alt="Floral decoration"
+          className="w-full h-auto block select-none pointer-events-none"
+        />
+      </div>
     </section>
   );
 }
@@ -321,7 +330,7 @@ function FinalCTA() {
         {/* a.btn: exact 129x51 box with 15px/28px padding per spec */}
         <button
           type="button"
-          onClick={() => window.open('#', '_blank')}
+          onClick={() => window.open('https://play.google.com/store/apps/details?id=com.with.app', '_blank', 'noopener,noreferrer')}
           className="mt-2 box-border w-[129px] h-[51px] px-[28px] py-[15px] bg-[#D2F026] text-[#171512] font-['Plus_Jakarta_Sans'] font-bold text-[15px] leading-[19px] rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
         >
           Get Wiviy

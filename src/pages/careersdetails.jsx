@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
+import { JOBS_BY_ID, JOBS_LIST } from '../data/jobs';
 // Adjust these paths to wherever your PNGs live
 import feature1 from '../assets/feature1.png';
 import feature2 from '../assets/feature2.png';
@@ -13,62 +15,6 @@ const SANS = "font-['Plus_Jakarta_Sans',sans-serif]";
 const BODY = "font-['Calibri','Carlito',sans-serif]";
 
 const PNGS = [feature1, feature2, feature3, feature4];
-
-/* ---------- Data (swap for your API / route params) ---------- */
-const DEFAULT_JOB = {
-  department: 'Product Design',
-  title: 'Senior Product Designer',
-  meta: ['Remote', 'Full-time', 'India'],
-  about:
-    "As a Senior Product Designer at Wiviy, you'll shape how people experience discovery, connection and conversation across the app. You'll work closely with product, engineering and brand to design flows that feel human, spontaneous and distinctly Wiviy — from onboarding through to the moments that make someone stay.",
-  lists: [
-    {
-      heading: 'What you’ll do',
-      items: [
-        'Design end-to-end product experiences across web and mobile.',
-        'Partner closely with engineering and product to ship considered, polished features.',
-        'Contribute to and help evolve the Wiviy design system.',
-        'Turn ambiguous problems into clear, well-reasoned design directions.',
-        'Bring a strong point of view on what makes dating feel more human.',
-      ],
-    },
-    {
-      heading: 'What you’ll bring',
-      items: [
-        '5+ years designing digital products, ideally consumer-facing.',
-        'A strong portfolio showing end-to-end product thinking, not just visuals.',
-        'Comfort working closely with engineers through to shipped detail.',
-        'Clear communication and the ability to explain design decisions simply.',
-      ],
-    },
-    {
-      heading: 'Nice to have',
-      items: [
-        'Experience designing for social or dating products.',
-        'Illustration or motion design skills.',
-        'Experience contributing to a design system from the ground up.',
-      ],
-    },
-  ],
-  paragraphs: [
-    {
-      heading: 'Who you’ll work with',
-      text: "You'll work closely with our product and engineering team, along with brand and marketing, to make sure every part of the experience feels considered — from the first screen someone sees to the smallest interaction detail.",
-    },
-    {
-      heading: 'Why this role matters',
-      text: 'Design is core to what makes Wiviy feel different from every other dating app. This role has real influence over how people experience meeting someone new — the small decisions you make will shape that experience for everyone who uses Wiviy.',
-    },
-  ],
-  salaryNote: 'Competitive compensation based on experience and role scope.',
-  salaryDisclaimer: 'Compensation may vary based on experience, scope, location and other role-related factors.',
-};
-
-const OTHER_ROLES = [
-  { department: 'Engineering', title: 'Senior Frontend Engineer', meta: 'Remote · India · Full-time', href: '#' },
-  { department: 'Product', title: 'Product Manager', meta: 'Bengaluru / Remote · Full-time', href: '#' },
-  { department: 'Marketing', title: 'Growth Marketing Manager', meta: 'Remote · Full-time', href: '#' },
-];
 
 /* ---------- Small pieces ---------- */
 function Heading({ children }) {
@@ -122,8 +68,15 @@ function ShareButtons({ title }) {
 }
 
 /* ---------- Page ---------- */
-export default function CareersDetails({ job = DEFAULT_JOB, applyHref = '/careers/apply', backHref = '/careers' }) {
-  const heroImg = useMemo(() => PNGS[Math.floor(Math.random() * PNGS.length)], []);
+export default function CareersDetails() {
+  const { id } = useParams();
+  const job = JOBS_BY_ID[id] || JOBS_LIST[0];
+  const otherRoles = JOBS_LIST.filter((j) => j.id !== job.id).slice(0, 3);
+  const heroImg = useMemo(() => PNGS[Math.floor(Math.random() * PNGS.length)], [job.id]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     <div className="min-h-screen bg-white text-[#171512]">
@@ -132,12 +85,12 @@ export default function CareersDetails({ job = DEFAULT_JOB, applyHref = '/career
       <main className="w-full pt-[104px]">
         {/* Back link */}
         <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-10 xl:px-0 pt-12 pb-4">
-          <a
-            href={backHref}
+          <Link
+            to="/careers"
             className={`${SANS} inline-flex items-center gap-1.5 font-extrabold text-[12.5px] leading-4 tracking-[1px] uppercase text-[#5E5A57] hover:text-[#171512] transition-colors`}
           >
             <span aria-hidden="true">←</span> Back to careers
-          </a>
+          </Link>
         </div>
 
         {/* Job header */}
@@ -200,12 +153,12 @@ export default function CareersDetails({ job = DEFAULT_JOB, applyHref = '/career
           <aside className="lg:sticky lg:top-6 self-start flex flex-col items-center">
             <div className="w-full max-w-[387px] flex flex-col items-center gap-4 rounded-[20px]">
               <h3 className={`${SERIF} font-semibold text-[24px] leading-[30px] tracking-[-0.19px] text-center`}>Think we'd click?</h3>
-              <a
-                href={applyHref}
+              <Link
+                to={`/careers/${job.id}/apply`}
                 className={`${SANS} w-full max-w-[361px] h-[55px] flex items-center justify-center rounded-full bg-[#171512] text-white font-bold text-[15px] hover:opacity-90 active:scale-95 transition-all`}
               >
                 Apply for this role
-              </a>
+              </Link>
               <p className={`${SANS} pt-3 font-bold text-[13px] leading-4 text-[#5E5A57]`}>Share this role</p>
               <div className="pb-8">
                 <ShareButtons title={`${job.title} at Wiviy`} />
@@ -228,18 +181,20 @@ export default function CareersDetails({ job = DEFAULT_JOB, applyHref = '/career
               Other open roles
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-              {OTHER_ROLES.map((r) => (
-                <a
-                  key={r.title}
-                  href={r.href}
+              {otherRoles.map((r) => (
+                <Link
+                  key={r.id}
+                  to={`/careers/${r.id}`}
                   className="group flex flex-col gap-1 p-6 rounded-2xl border border-[#E8E6DD] hover:border-[#171512] transition-colors"
                 >
                   <span className={`${SANS} font-bold text-[12.5px] leading-4 tracking-[2px] uppercase text-[#5E5A57]`}>
                     {r.department}
                   </span>
                   <span className={`${SANS} font-bold text-[17px] leading-[21px] group-hover:underline`}>{r.title}</span>
-                  <span className={`${SANS} pt-1 text-[12.5px] leading-4 text-[#5E5A57]`}>{r.meta}</span>
-                </a>
+                  <span className={`${SANS} pt-1 text-[12.5px] leading-4 text-[#5E5A57]`}>
+                    {r.location} · {r.type}
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
