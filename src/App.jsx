@@ -25,8 +25,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogDetails />} />
         <Route path="/blogdetails" element={<BlogDetails />} />
+        <Route path="/blogdetails/:slug" element={<BlogDetails />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/careers/:id" element={<CareersDetails />} />
         <Route path="/careers/:id/apply" element={<CareersApply />} />
@@ -34,6 +35,7 @@ function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/safety" element={<Support />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/policy" element={<Privacy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/cookies" element={<CookiePolicy />} />
         <Route path="/terms" element={<Terms />} />

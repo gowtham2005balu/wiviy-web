@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
+import Particles from '../components/Particles';
 
 import heroImage from '../assets/hero.png';
 import shakePhoneImage from '../assets/shake-phone.png';
@@ -145,8 +146,8 @@ const shakePills = [
 ];
 
 const pillTone = {
-  blue: 'bg-[#C7AFFF]/10 border border-[#0040FF]/25 text-[#161414]',
-  red: 'bg-[#FFAFAF]/10 border border-[#FF0000]/25 text-[#161414]',
+  blue: 'bg-[#C7AFFF]/25 text-[#161414]',
+  red: 'bg-[#FFAFAF]/25 text-[#161414]',
 };
 
 function PillRow({ reverse = false }) {
@@ -239,6 +240,22 @@ function MoreWays() {
       className="relative w-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-16 lg:py-30 overflow-hidden isolate bg-[#2A1D28] bg-cover bg-center"
       style={{ backgroundImage: starfieldBg }}
     >
+      {/* Background Particles Animation */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Particles
+          particleColors={['#F5B1EB', '#D2F026', '#FFFFFF', '#C48FB8', '#E6D3E0']}
+          particleCount={220}
+          particleSpread={12}
+          speed={0.15}
+          particleBaseSize={110}
+          moveParticlesOnHover={true}
+          particleHoverFactor={0.85}
+          alphaParticles={true}
+          disableRotation={false}
+          className="w-full h-full"
+        />
+      </div>
+
       <div className={`relative z-10 ${SPLIT_ROW}`}>
         <div className={`${SPLIT_COL} flex justify-center items-center order-2 lg:order-1`}>
           <img src={shakePhoneImage} alt="Shake your phone feature preview" className={PHONE_IMG} />
