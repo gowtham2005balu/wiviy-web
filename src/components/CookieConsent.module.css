@@ -324,10 +324,10 @@
   outline-offset: 2px;
 }
 
-/* Enabled / Active State: Clean black border and white track from Figma */
+/* Enabled / Active State: Green background matching Wiviy lime brand color */
 .switchButtonActive {
-  background-color: #ffffff;
-  border: 2px solid #171512;
+  background-color: #d2f026;
+  border: 2px solid #d2f026;
 }
 
 .switchButtonDisabled {
@@ -342,15 +342,15 @@
   height: 16px;
   background-color: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease;
   transform: translateX(0);
 }
 
 .switchThumbActive {
   transform: translateX(18px);
-  background-color: #9ca3af;
-  box-shadow: none;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 /* Link at bottom of list */
