@@ -196,22 +196,24 @@ export default function CookieConsent({ brandName = 'Wiviy' }) {
           aria-labelledby="cookie-settings-title"
         >
           <div id="cookie-settings-modal" className={styles.modal}>
+            {/* Pinned Header */}
+            <div className={styles.modalHeader}>
+              <h2 id="cookie-settings-title" className={styles.modalTitle}>
+                Cookie settings
+              </h2>
+              <button
+                type="button"
+                id="cookie-modal-close-btn"
+                className={styles.closeBtn}
+                onClick={() => setShowModal(false)}
+                aria-label="Close cookie settings"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Scrollable Body */}
             <div className={styles.modalContent}>
-              {/* Header */}
-              <div className={styles.modalHeader}>
-                <h2 id="cookie-settings-title" className={styles.modalTitle}>
-                  Cookie settings
-                </h2>
-                <button
-                  type="button"
-                  id="cookie-modal-close-btn"
-                  className={styles.closeBtn}
-                  onClick={() => setShowModal(false)}
-                  aria-label="Close cookie settings"
-                >
-                  <X size={16} />
-                </button>
-              </div>
 
               {/* Subtitle */}
               <p className={styles.modalSubtitle}>
@@ -342,27 +344,27 @@ export default function CookieConsent({ brandName = 'Wiviy' }) {
               >
                 Read our Cookie Policy
               </Link>
+            </div>
 
-              {/* Modal Actions */}
-              <div className={styles.modalActions}>
-                <button
-                  type="button"
-                  id="cookie-modal-reject-btn"
-                  className={styles.btnModalReject}
-                  onClick={handleRejectNonEssential}
-                >
-                  Reject non-essential
-                </button>
+            {/* Pinned Modal Actions */}
+            <div className={styles.modalActions}>
+              <button
+                type="button"
+                id="cookie-modal-reject-btn"
+                className={styles.btnModalReject}
+                onClick={handleRejectNonEssential}
+              >
+                Reject non-essential
+              </button>
 
-                <button
-                  type="button"
-                  id="cookie-modal-save-btn"
-                  className={styles.btnModalSave}
-                  onClick={handleSavePreferences}
-                >
-                  Save preferences
-                </button>
-              </div>
+              <button
+                type="button"
+                id="cookie-modal-save-btn"
+                className={styles.btnModalSave}
+                onClick={handleSavePreferences}
+              >
+                Save preferences
+              </button>
             </div>
           </div>
         </div>

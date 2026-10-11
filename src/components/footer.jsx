@@ -95,11 +95,11 @@ function GooglePlayLogo({ className = 'w-4 h-4 shrink-0' }) {
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#101109] flex flex-col items-start pt-[90px] px-20">
+    <footer className="w-full bg-[#101109] flex flex-col items-start pt-16 sm:pt-[90px] px-6 sm:px-12 lg:px-20">
       <div className="w-full max-w-[1280px] mx-auto flex flex-col items-start">
 
         {/* Top: brand + link columns */}
-        <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-8">
+        <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-8">
 
           {/* Brand */}
           <div className="flex flex-col items-start gap-[15px] max-w-[290px]">
@@ -130,11 +130,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
-          <FooterColumn title="Company" links={companyLinks} />
-          <FooterColumn title="Support" links={supportLinks} />
-          <FooterColumn title="Features" links={featureLinks} />
-          <FooterColumn title="Legal" links={legalLinks} />
+          {/* Link columns: 2 columns on mobile, 4 on desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 lg:gap-8 w-full lg:w-auto">
+            <FooterColumn title="Company" links={companyLinks} />
+            <FooterColumn title="Support" links={supportLinks} />
+            <FooterColumn title="Features" links={featureLinks} />
+            <FooterColumn title="Legal" links={legalLinks} />
+          </div>
         </div>
 
         {/* Divider */}

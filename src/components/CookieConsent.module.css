@@ -197,17 +197,20 @@
   }
 }
 
-.modalContent {
-  padding: 32px 34px 28px 34px;
-  overflow-y: auto;
-}
-
 .modalHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 8px;
+  padding: 24px 34px 16px 34px;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.modalContent {
+  padding: 24px 34px 16px 34px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .modalTitle {
@@ -374,8 +377,10 @@
 .modalActions {
   display: flex;
   gap: 12px;
-  padding-top: 18px;
+  padding: 16px 34px 22px 34px;
   border-top: 1px solid #f3f4f6;
+  background: #ffffff;
+  flex-shrink: 0;
 }
 
 .btnModalReject {
@@ -472,17 +477,35 @@
 
   .modal {
     border-radius: 22px;
+    max-height: 86vh;
+    margin: 12px;
+  }
+
+  .modalHeader {
+    padding: 18px 20px 14px 20px;
   }
 
   .modalContent {
-    padding: 24px 20px;
+    padding: 18px 20px 14px 20px;
+  }
+
+  .modalTitle {
+    font-size: 22px;
+  }
+
+  .categoryList {
+    gap: 16px;
+    margin-bottom: 16px;
   }
 
   .modalActions {
     flex-direction: column;
+    gap: 10px;
+    padding: 14px 20px 18px 20px;
   }
 
   .categoryDesc {
     padding-right: 0;
   }
 }
+
