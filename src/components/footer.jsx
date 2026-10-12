@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const companyLinks = [
   { label: 'About Us', href: '/about' },
@@ -93,6 +93,172 @@ function GooglePlayLogo({ className = 'w-4 h-4 shrink-0' }) {
   );
 }
 
+function AnimatedWordmark() {
+  const containerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const scrollTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!containerRef.current) {
+            ticking = false;
+            return;
+          }
+          const rect = containerRef.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+          const isVisible = rect.top < windowHeight + 100 && rect.bottom > -100;
+          setInView(isVisible);
+
+          if (isVisible) {
+            // User is actively scrolling while wordmark is in view
+            setIsScrolling(true);
+            if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+            scrollTimeoutRef.current = setTimeout(() => {
+              setIsScrolling(false);
+            }, 500);
+
+            const totalTravel = windowHeight + rect.height;
+            const currentPosition = windowHeight - rect.top;
+            const progress = Math.max(0, Math.min(1, currentPosition / totalTravel));
+            setScrollProgress(progress);
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
+  const handleLetterMouseMove = (e, i) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    setMousePos({ x, y });
+    setHoveredIndex(i);
+  };
+
+  const letters = ['W', 'I', 'V', 'I', 'Y'];
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full flex flex-row justify-between items-center overflow-hidden py-8 select-none relative"
+      aria-label="WIVIY Wordmark"
+    >
+      {letters.map((letter, i) => {
+        // Staggered scroll progress for each letter
+        const staggerDelay = i * 0.08;
+        const letterProgress = Math.max(
+          0,
+          Math.min(1, (scrollProgress - 0.15 - staggerDelay) / 0.55)
+        );
+
+        // Sinusoidal floating wave on scroll
+        const scrollWave = inView
+          ? Math.sin(scrollProgress * Math.PI * 1.5 + i * 0.6) * -18
+          : 0;
+
+        const isHovered = hoveredIndex === i;
+        const isActive = isHovered || (isScrolling && inView);
+        const fillPercent = isScrolling
+          ? Math.max(30, Math.min(100, Math.round(letterProgress * 100)))
+          : 0;
+
+        // Dither shift offset based on scroll position for pixel sparkling motion
+        const ditherShift = Math.round(scrollProgress * 120) % 8;
+
+        return (
+          <div
+            key={i}
+            onMouseMove={(e) => handleLetterMouseMove(e, i)}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            className="relative inline-block cursor-pointer select-none will-change-transform"
+            style={{
+              fontSize: 'clamp(80px, 16vw, 300px)',
+              lineHeight: 1,
+              transform: `translateY(${
+                isHovered ? scrollWave - 14 : inView ? scrollWave : 35
+              }px) scale(${isHovered ? 1.05 : inView ? 1 : 0.94})`,
+              opacity: inView ? 1 : 0.3,
+              transition:
+                'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease',
+            }}
+          >
+            {/* 1. Base Outline Letter - Stays clean outline when not scrolling */}
+            <span
+              className="block font-serif select-none"
+              style={{
+                WebkitTextStroke: isActive
+                  ? '2.5px #D2F026'
+                  : '2px rgba(255, 255, 255, 0.14)',
+                color: 'transparent',
+                filter: isHovered
+                  ? 'drop-shadow(0 0 35px rgba(210, 240, 38, 0.7))'
+                  : isActive
+                  ? 'drop-shadow(0 0 16px rgba(210, 240, 38, 0.35))'
+                  : 'none',
+                transition: 'WebkitTextStroke 0.35s ease, filter 0.35s ease',
+              }}
+            >
+              {letter}
+            </span>
+
+            {/* 2. Dither Animation strictly INSIDE the letter glyphs only when scrolling or hovered */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 block font-serif pointer-events-none select-none"
+              style={{
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+                opacity: isActive ? 1 : 0,
+                backgroundImage: isHovered
+                  ? `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(210, 240, 38, 0.95) 0%, rgba(210, 240, 38, 0.4) 40%, transparent 75%), repeating-conic-gradient(#D2F026 0% 25%, transparent 0% 50%)`
+                  : `linear-gradient(180deg, #D2F026 0%, rgba(210, 240, 38, 0.85) ${fillPercent}%, transparent ${Math.min(
+                      100,
+                      fillPercent + 15
+                    )}%), repeating-conic-gradient(#D2F026 0% 25%, transparent 0% 50%)`,
+                backgroundSize: isHovered
+                  ? '100% 100%, 6px 6px'
+                  : '100% 100%, 6px 6px',
+                backgroundPosition: `0 0, ${ditherShift}px ${ditherShift}px`,
+                transition: 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              {letter}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="w-full bg-[#101109] flex flex-col items-start pt-16 sm:pt-[90px] px-6 sm:px-12 lg:px-20">
@@ -142,23 +308,8 @@ export default function Footer() {
         {/* Divider */}
         <div className="w-full h-px bg-white/10 mt-16" />
 
-        {/* Giant wordmark */}
-        <div className="w-full flex flex-row justify-between items-center overflow-hidden py-8">
-          {['W', 'I', 'V', 'I', 'Y'].map((letter, i) => (
-            <span
-              key={i}
-              className="font-serif text-white/[0.08]"
-              style={{
-                fontSize: 'clamp(80px, 16vw, 300px)',
-                lineHeight: 1,
-                WebkitTextStroke: '2px rgba(255,255,255,0.14)',
-                color: 'transparent',
-              }}
-            >
-              {letter}
-            </span>
-          ))}
-        </div>
+        {/* Giant wordmark with scroll-driven animation */}
+        <AnimatedWordmark />
 
         {/* Bottom bar */}
         <div className="w-full flex flex-row flex-wrap justify-between items-center gap-4 py-6">
